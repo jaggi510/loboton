@@ -1,0 +1,9 @@
+<p-dialog [(visible)]="showDetails" [modal]="true" [draggable]="false" [dismissableMask]="false" position="top"
+  [style]="{ width: '100vw', height: '100vh' }" #dialog (onShow)="dialog.maximize()" maximizable="true">
+  <ng-template pTemplate="header">
+    <div class="row">
+      <div class="col-auto display-5">Loboton</div>
+    </div>
+  </ng-template>
+  <app-match-score></app-match-score>
+</p-dialog>

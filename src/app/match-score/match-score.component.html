@@ -1,0 +1,43 @@
+<div class="form-check form-switch">
+  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" [(ngModel)]="showAll">
+  <label class="form-check-label" for="flexSwitchCheckDefault">Details</label>
+</div>
+<div class="card-group">
+  @for (d of data|async | keyvalue; track d.value['id'];let odd=$odd, dataIdx = $index) {
+  @if(d.value; as team){
+  <div class="card vh-100" [class]="[odd ? 'bg-dark': 'bg-dark']">
+    <div class="card-body p-0">
+      <div class="card team"
+        [class]="[odd ? 'bg-primary-subtle': 'bg-primary-subtle', showAll() ? 'h-40' : 'h-100','score_'+team['score']]">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-auto">
+              <div class="display-1 fw-semibold">{{team['name'] | playerName | titlecase}}
+              </div>
+            </div>
+          </div>
+          @if(team?.scores?.length){
+          <div class="badge text-bg-warning fs-1 mt-lg-1">{{teamWins(team.scores)}}</div>
+          }
+        </div>
+      </div>
+      @for (player of team['players']; track player.playerId; let index=$index) {
+      <div class="card h-20 bg-info-subtle player-card" [class.d-none]="!showAll()">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-auto">
+              <div class="display-6 fw-normal"> {{player.name | playerName | titlecase}}</div>
+            </div>
+            <div class="col text-end"><span class="display-4 fw-normal">{{player.score}}</span></div>
+          </div>
+          <p class="h4">
+            {{formatScores(player.scores)}}
+          </p>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+  }
+  }
+</div>

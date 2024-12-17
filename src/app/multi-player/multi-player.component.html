@@ -1,0 +1,83 @@
+<div class="row fixed-top">
+  <div class="col-auto">
+    <a class="material-icons-round btn btn-link fs-2 ps-0" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
+      aria-controls="offcanvasExample">menu</a>
+  </div>
+  <div class="col display-6 fw-normal d-sm-none d-md-block" contenteditable="true">
+    {{title}}
+  </div>
+</div>
+<app-match (matchData)="buildTeamData($event)" [id]="id()"></app-match>
+<app-match-lineup [(data)]="data" [(teamRoster)]="teamRoster"></app-match-lineup>
+<app-match-detail [(showDetails)]="showMatchDetail"></app-match-detail>
+<div class="card-group">
+  @for (d of data() | keyvalue; track d.value['id'];let odd=$odd, dataIdx = $index) {
+  @if(d.value; as team){
+  <div class="card vh-100" [class]="[odd ? 'bg-dark': 'bg-dark']">
+    <div class="card-body p-0">
+      <div class="card h-40 team" (click)="addPoint(dataIdx)"
+        [class]="[odd ? 'bg-primary-subtle': 'bg-primary-subtle', 'score_'+team['score']]">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-auto">
+              <div class="display-1 fw-semibold">{{team['name'] | playerName | titlecase}}</div>
+            </div>
+          </div>
+          @if(team?.scores?.length){
+          <div class="badge text-bg-warning fs-1 mt-lg-1">{{teamWins(team.scores)}}</div>
+          }
+        </div>
+      </div>
+      @for (player of team['players']; track player.playerId; let index=$index) {
+      @if(index < 3){ <div class="card h-20 bg-info-subtle player-card" pDraggable="players" pDroppable="players"
+        (onDragStart)="dragStart(index, team.id)" (onDrop)="dropEnd(index, team.id)">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-auto">
+              <div class="display-6 fw-normal"> {{player.name | playerName | titlecase}}</div>
+            </div>
+            <div class="col text-end"><span class="display-4 fw-normal">{{player.score}}</span></div>
+          </div>
+          <p class="h4">
+            {{formatScores(player.scores)}}
+          </p>
+        </div>
+    </div>
+    }
+    }
+  </div>
+</div>
+}
+}
+</div>
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Menu</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item" (click)="newRoundSelection()" role="button" data-bs-toggle="offcanvas">Change Lineup
+      </li>
+      <li class="list-group-item" (click)="refresh()" role="button" data-bs-toggle="offcanvas">Start New Match</li>
+      <li class="list-group-item" (click)="showMatchDetail.set(true)" role="button" data-bs-toggle="offcanvas">Match Details
+      </li>
+      <li class="list-group-item" (click)="undoLastAction()" role="button" data-bs-toggle="offcanvas">Undo Last Action</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- <div class="button-group d-none">
+    <a class="btn btn-link" (click)="newRoundSelection()">Change Lineup</a>
+    <a class="btn btn-link" title="Start New Page">
+      <span class="material-icons-round" (click)="refresh()">refresh</span>
+    </a>
+    <a class="btn btn-link" title="Match Details">
+      <span class="material-icons-round" (click)="showMatchDetail.set(true)"> check_box_outline_blank</span>
+    </a>
+    <a class="btn btn-link" title="Replay Last Point">
+      <span class="material-icons-round" (click)="undoLastAction()">replay</span>
+    </a>
+  </div> -->

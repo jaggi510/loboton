@@ -1,0 +1,5 @@
+@import "bootstrap";
+
+input.ng-invalid.ng-touched {
+  @extend .is-invalid;
+}

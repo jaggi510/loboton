@@ -1,1 +1,189 @@
-/* You can add global styles to this file, and also import other style files */
+@import "functions";
+@import "variables";
+@import "variables-dark";
+@import "maps";
+@import "mixins";
+@import "root";
+@import "bootstrap";
+
+a[role=button] {
+  text-decoration: none;
+}
+
+.material-icons-round {
+  font-size: 24px;
+  // Position Fix
+  margin-top: -0.125rem;
+  vertical-align: middle;
+  position: relative;
+}
+
+.table-sticky-header {
+  max-height: 80vh;
+}
+
+body {
+  touch-action: manipulation;
+}
+
+p-table {
+  .sticky-header {
+    .p-datatable-wrapper {
+      @extend .table-sticky-header;
+
+      th {
+        background: solid;
+        background-color: white;
+      }
+    }
+  }
+
+  .p-datatable {
+    .p-datatable-wrapper {
+      table {
+        thead {
+
+          tr {
+
+            &:hover,
+            &:focus {
+              background: transparent !important;
+            }
+          }
+        }
+
+        th,
+        td {
+          padding: 0.75rem !important;
+          border: 0;
+        }
+
+        th {
+          border-bottom: 2px solid $gray-500;
+          color: $body-color;
+          white-space: nowrap;
+
+          &.p-highlight {
+            color: $body-color;
+
+            &:hover {
+              color: $body-color;
+            }
+          }
+
+          &:focus {
+            box-shadow: unset !important;
+          }
+
+        }
+
+        td {
+          border-top: 1px solid $gray-500;
+        }
+
+        tbody {
+          tr {
+            &.table-danger:hover {
+              background-color: transparent !important;
+              transform: scale(1);
+              @extend .shadow;
+            }
+
+            &.p-highlight {
+              color: $body-color;
+            }
+
+            &:nth-child(odd) {
+              background: $white;
+            }
+
+            &:nth-child(even) {
+              background: $gray-100;
+            }
+
+            &:hover {
+              background-color: transparent !important;
+              transform: scale(1);
+              @extend .shadow;
+            }
+
+            .expand-col-header {
+              font-weight: 600;
+              font-size: 14px !important;
+            }
+
+            .expand-col-data {
+              font-size: 14px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  padding: .6875rem 1rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--bs-body-color);
+  appearance: none;
+  background-color: var(--bs-body-bg);
+  background-clip: padding-box;
+  border: 1px solid #918f8f;
+  border-radius: var(--bs-border-radius);
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.form-control.ng-invalid.ng-touched[_ngcontent-ng-c1700994070] {
+  border-color: #c5203c;
+}
+
+.card.team {
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  &.score_0 {
+    background-image: url(./assets/svg/0-square.svg);
+  }
+
+  &.score_1 {
+    background-image: url(./assets/svg/1-square.svg);
+  }
+
+  &.score_2 {
+    background-image: url(./assets/svg/2-square.svg);
+  }
+
+  &.score_3 {
+    background-image: url(./assets/svg/3-square.svg);
+  }
+
+  &.score_4 {
+    background-image: url(./assets/svg/4-square.svg);
+  }
+
+  &.score_5 {
+    background-image: url(./assets/svg/5-square.svg);
+  }
+
+  &.score_6 {
+    background-image: url(./assets/svg/6-square.svg);
+  }
+
+  &.score_7 {
+    background-image: url(./assets/svg/7-square.svg);
+  }
+
+  &.score_8 {
+    background-image: url(./assets/svg/8-square.svg);
+  }
+
+  &.score_9 {
+    background-image: url(./assets/svg/9-square.svg);
+  }
+}

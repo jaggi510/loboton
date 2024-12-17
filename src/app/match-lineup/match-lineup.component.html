@@ -1,0 +1,35 @@
+<p-dialog [(visible)]="teamRoster" [modal]="true" [draggable]="false" [dismissableMask]="false" position="top" [style]="{ width: '100vw' }">
+  <ng-template #header>
+    <h4>Add Teams</h4>
+  </ng-template>
+  <ng-template #content>
+    <div class="row row-cols-2 mt-2">
+      @for (d of data() | keyvalue; track d.value['id']; let index=$index) {
+      @if(d.value; as team){
+      <div class="col">
+        <h3>{{team['name']}}</h3>
+        @for (player of team['players']; track $index; let playerIndex=$index){
+        @if(playerIndex < 3){ <div class="form-floating pb-2">
+          <select [(ngModel)]="values[index][playerIndex]" id="floatingSelect" class="custom-select form-control form-control-lg"
+            (change)="shufflePlayer(index, $event, playerIndex)">
+            <option disabled="true" selected="true">Select</option>
+            @for (names of team['players']; track $index)
+            {
+            <option [value]="names.playerId">{{names.name}}</option>
+            }
+          </select>
+          <label for="floatingSelect">Player</label>
+      </div>
+      }
+      }
+    </div>
+    }
+    }
+    </div>
+    <div class="row py-4">
+      <div class="col-12 text-center">
+        <button class="btn btn-primary btn-lg btn-min-width" (click)="teamRoster.set(false)">Play</button>
+      </div>
+    </div>
+  </ng-template>
+</p-dialog>

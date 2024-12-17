@@ -1,0 +1,74 @@
+<div class="p-4">
+  <p-dialog [(visible)]="addNewTeam" [modal]="true" [draggable]="false" [dismissableMask]="false" position="top" closable="false"
+    [style]="{ width: '100vw' }">
+    <ng-template pTemplate="header">
+      <h2>
+        New Loboton Match
+      </h2>
+    </ng-template>
+    <form [formGroup]="matchGroup">
+      <div class="row row-cols-2  mt-2">
+        <div class="col" [formGroup]="home">
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control form-control-lg" id="floatingInput" placeholder="Home Team" formControlName="name">
+            <label for="floatingInput">Team Name</label>
+          </div>
+
+          <ng-container formArrayName="players">
+            @for (player of arrayControls(homeTeam); track $index; let index=$index, last=$last, count=$count) {
+            <ng-container [formGroup]="player">
+              <div class="d-flex flex-row">
+                <div class="flex-grow-1">
+                  <div class="form-floating mb-3">
+                    <input type="email" class="form-control form-control-lg" id="floatingInput" placeholder="Name" formControlName="name">
+                    <label for="floatingInput">Player Name</label>
+                  </div>
+                </div>
+                <div class="flex-grow-0 ps-1">
+                  @if(count > 3 && index > 2){
+                  <span class="material-icons-round text-primary" (click)="removePlayer(homeTeam, index)">cancel</span>
+                  }
+                  @if(last){
+                  <span class="material-icons-round text-primary" (click)="addNewPlayer(homeTeam)">add_circle</span>
+                  }
+                </div>
+              </div>
+            </ng-container>
+            }
+          </ng-container>
+        </div>
+        <div class="col" [formGroup]="visitor">
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control form-control-lg" id="floatingInput" placeholder="Home Team" formControlName="name">
+            <label for="floatingInput">Team Name</label>
+          </div>
+          <ng-container formArrayName="players">
+            @for (player of arrayControls(visitorTeam); track $index; let index=$index, last=$last, count=$count) {
+            <ng-container [formGroup]="player">
+              <div class="d-flex flex-row">
+                <div class="flex-grow-1">
+                  <div class="form-floating mb-3">
+                    <input type="email" class="form-control form-control-lg" id="floatingInput" placeholder="Name" formControlName="name">
+                    <label for="floatingInput">Player Name</label>
+                  </div>
+                </div>
+                <div class="flex-grow-0 ps-1">
+                  @if(count > 3 && index > 2){
+                  <span class="material-icons-round text-primary" (click)="removePlayer(visitorTeam, index)">cancel</span>
+                  }
+                  @if(last){
+                  <span class="material-icons-round text-primary" (click)="addNewPlayer(visitorTeam)">add_circle</span>
+                  }
+                </div>
+              </div>
+            </ng-container>
+            }
+          </ng-container>
+        </div>
+      </div>
+      <div class="row col text-center my-3">
+        <button class="btn btn-lg btn-primary btn-min-width" (click)="teamsDone()">Let's Play</button>
+      </div>
+    </form>
+  </p-dialog>
+</div>
